@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Interactive Math Game</string>
+    <string name="math_challenge">Math Challenge</string>
+    <string name="score">Score: %1$d</string>
     <string name="correct_answer">Correct!</string>
     <string name="incorrect_answer">Incorrect!</string>
-    <string name="game_over">Game Over! Your score: %1$d</string>
-    <string name="score">Score: %1$d</string>
+    <string name="game_over">Game Over! Final Score: %1$d</string>
 </resources>

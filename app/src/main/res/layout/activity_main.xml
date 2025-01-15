@@ -66,16 +66,6 @@
         android:textColor="#4F46E5"
         android:textSize="18sp" />
 
-    <!-- Submit Button -->
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
-        android:background="@color/primary"
-        android:text="Submit"
-        android:textColor="@android:color/white" />
-
     <!-- Restart Button -->
     <Button
         android:id="@+id/restartButton"

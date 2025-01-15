@@ -12,7 +12,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var titleTextView: TextView
     private lateinit var questionTextView: TextView
     private lateinit var answerContainer: LinearLayout
-    private lateinit var submitButton: Button
     private lateinit var resultTextView: TextView
     private lateinit var scoreContainer: LinearLayout
     private lateinit var scoreTextView: TextView
@@ -27,22 +26,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // UI elementlarini bog'lash
+        // Initialize UI elements
         titleTextView = findViewById(R.id.titleTextView)
         questionTextView = findViewById(R.id.questionTextView)
         answerContainer = findViewById(R.id.answerContainer)
-        submitButton = findViewById(R.id.submitButton)
         resultTextView = findViewById(R.id.resultTextView)
         scoreContainer = findViewById(R.id.scoreContainer)
         scoreTextView = findViewById(R.id.scoreTextView)
         restartButton = findViewById(R.id.restartButton)
 
-        // Tepa markazga "Math Challenge" textini qo'shish
-        titleTextView.text = "Math Challenge"
+        // Set up UI text
+        titleTextView.text = getString(R.string.math_challenge)
         titleTextView.textSize = 24f
         titleTextView.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
 
-        // Score containerni sozlash
+        // Score container setup
         scoreContainer.setPadding(20)
         scoreContainer.setBackgroundColor(ContextCompat.getColor(this, R.color.primary))
         scoreTextView.text = getString(R.string.score, score)
@@ -51,24 +49,15 @@ class MainActivity : AppCompatActivity() {
         restartButton.setOnClickListener { restartGame() }
 
         loadQuestion()
-
-        submitButton.setOnClickListener {
-            val selectedAnswer = getSelectedAnswer()
-            if (selectedAnswer != null) {
-                checkAnswer(selectedAnswer)
-            } else {
-                Toast.makeText(this, "Please select an answer", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
     private fun loadQuestion() {
         if (currentQuestionIndex < questions.size) {
             val question = questions[currentQuestionIndex]
             questionTextView.text = question.text
-            questionTextView.textSize = 20f // Savol shriftini kattalashtirish
+            questionTextView.textSize = 20f
 
-            // Javob containerini tozalash va qayta yaratish
+            // Clear and recreate answer buttons
             answerContainer.removeAllViews()
             val rowCount = 2
             val columnCount = 2
@@ -95,25 +84,11 @@ class MainActivity : AppCompatActivity() {
                 answerContainer.addView(row)
             }
         } else {
-            // O'yin tugadi
+            // Game over
             resultTextView.text = getString(R.string.game_over, score)
             resultTextView.setTextColor(ContextCompat.getColor(this, R.color.primary))
-            submitButton.isEnabled = false
             restartButton.isEnabled = true
         }
-    }
-
-    private fun getSelectedAnswer(): String? {
-        for (i in 0 until answerContainer.childCount) {
-            val row = answerContainer.getChildAt(i) as LinearLayout
-            for (j in 0 until row.childCount) {
-                val button = row.getChildAt(j) as Button
-                if (button.isSelected) {
-                    return button.text.toString()
-                }
-            }
-        }
-        return null
     }
 
     private fun checkAnswer(selectedAnswer: String) {
@@ -136,7 +111,6 @@ class MainActivity : AppCompatActivity() {
         currentQuestionIndex = 0
         resultTextView.text = ""
         scoreTextView.text = getString(R.string.score, score)
-        submitButton.isEnabled = true
         restartButton.isEnabled = false
         loadQuestion()
     }
